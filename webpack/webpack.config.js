@@ -22,11 +22,11 @@ export default () => ({
     filename: Paths.OUTPUT_BUNDLE_FILE_NAME,
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.jsx?$/,
       exclude: /node_modules/,
       use: [{
         loader: 'babel-loader',
