@@ -4,6 +4,7 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlInlineSourceWebpackPlugin from 'html-webpack-inline-source-plugin';
 import PostCompileWebpackPlugin from 'post-compile-webpack-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
 import fs from 'fs-extra';
 import gulp from 'gulp';
 import once from 'lodash/once';
@@ -34,9 +35,14 @@ export default () => ({
           ...Config.BABELRC,
         },
       }],
+    }, {
+      test: /\.vue$/,
+      exclude: /node_modules/,
+      use: 'vue-loader',
     }],
   },
   plugins: [
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: Paths.INDEX_TEMPLATE_FILE_PATH,
       inlineSource: '.js',
