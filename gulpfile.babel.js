@@ -4,3 +4,4 @@
 import './scripts/gulp/task-clean';
 import './scripts/gulp/task-mach';
 import './scripts/gulp/task-build';
+import './scripts/gulp/task-serve';

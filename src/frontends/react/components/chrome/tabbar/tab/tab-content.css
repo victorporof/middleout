@@ -1,0 +1,26 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+   License, v. 2.0. If a copy of the MPL was not distributed with this
+   file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.tab-content {
+  overflow: hidden;
+  padding: 0 22px 0 8px;
+  border: none;
+  background: var(--theme-tab-inactive-background-color);
+  border-right: 1px solid var(--theme-tab-separator-color);
+  border-bottom: 1px solid var(--theme-tabbar-border-bottom-color);
+}
+
+.tab-content.selected {
+  background: var(--theme-tab-active-background-color);
+  border-bottom: none;
+  padding-bottom: 1px;
+}
+
+.tab-content:not(.selected):hover {
+  background: var(--theme-tab-hover-background-color);
+}
+
+.tab-content * {
+  pointer-events: none;
+}

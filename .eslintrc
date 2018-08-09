@@ -3,6 +3,12 @@
   "extends": "airbnb",
   "rules": {
     "no-underscore-dangle": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "import/prefer-default-export": "off"
   }
 }

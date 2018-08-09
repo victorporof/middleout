@@ -14,3 +14,6 @@ export const WEBPACK_CONFIG_PROD_PATH = path.join(Paths.WEBPACK_DIR_PATH, 'webpa
 // Configs
 export const BABELRC = fs.readJsonSync(BABELRC_CONFIG_PATH);
 export const JAR_INCLUDE = '        content/browser/middleout.html (content/middleout/index.html)';
+
+// Computed
+export const GECKO_DEV_OUTPUT_DIR_EXISTS = fs.pathExistsSync(Paths.GECKO_DEV_OUTPUT_DIR_PATH);

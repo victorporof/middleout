@@ -6,6 +6,8 @@
   "plugins": [
     "transform-runtime",
     "transform-object-rest-spread",
-    "transform-class-properties"
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "react-css-modules"
   ]
 }

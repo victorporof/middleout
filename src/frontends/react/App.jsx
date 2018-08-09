@@ -3,7 +3,17 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import React from 'react';
+import { Provider } from 'react-redux';
 
-import Browser from './components/browser';
+import store from './store';
 
-export default <Browser />;
+import '../../css/global.css';
+import '../../css/flex.css';
+import '../../css/theme.css';
+import Window from './components/window';
+
+export default (
+  <Provider store={store}>
+    <Window />
+  </Provider>
+);

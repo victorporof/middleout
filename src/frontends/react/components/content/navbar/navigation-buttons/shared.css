@@ -1,0 +1,20 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+   License, v. 2.0. If a copy of the MPL was not distributed with this
+   file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.shared {
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  padding: 0 6px;
+  margin-right: 1px;
+  opacity: 0.5;
+}
+
+.shared:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.enabled {
+  opacity: 1.0;
+}

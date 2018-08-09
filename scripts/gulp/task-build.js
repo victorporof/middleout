@@ -10,8 +10,10 @@ import * as Paths from '../paths';
 
 gulp.task('build:webpack:dev', shell.task(`
   webpack\
-    --gecko-path ${argv.geckoPath}\
-    --frontend ${argv.frontend}\
+    ${argv.geckoPath ? `--gecko-path ${argv.geckoPath}` : ''}\
+    ${argv.frontend ? `--frontend ${argv.frontend}` : ''}\
+    ${argv.run ? '--run' : ''}\
+    ${argv.serve ? '--serve' : ''}\
     --config ${Config.WEBPACK_CONFIG_DEV_PATH}\
     ${argv.progress ? '--progress' : ''}\
     ${argv.watch ? '--watch' : ''}
@@ -19,8 +21,10 @@ gulp.task('build:webpack:dev', shell.task(`
 
 gulp.task('build:webpack:prod', shell.task(`
   webpack\
-    --gecko-path ${argv.geckoPath}\
-    --frontend ${argv.frontend}\
+    ${argv.geckoPath ? `--gecko-path ${argv.geckoPath}` : ''}\
+    ${argv.frontend ? `--frontend ${argv.frontend}` : ''}\
+    ${argv.run ? '--run' : ''}\
+    ${argv.serve ? '--serve' : ''}\
     --config ${Config.WEBPACK_CONFIG_PROD_PATH}\
     ${argv.progress ? '--progress' : ''}
 `));
@@ -28,15 +32,15 @@ gulp.task('build:webpack:prod', shell.task(`
 gulp.task('build:gecko-dev:link', shell.task(`
   ln -s "${Paths.OUTPUT_DIR_PATH}" "${Paths.GECKO_DEV_OUTPUT_DIR_PATH}"
 `, {
-  ignoreErrors: true,
-}));
+    ignoreErrors: true,
+  }));
 
 gulp.task('build:gecko-dev:jar', shell.task(`
   grep -qF "${Config.JAR_INCLUDE}" "${Paths.BROWSER_JAR_FILE_PATH}"\
   || echo "${Config.JAR_INCLUDE}" >> "${Paths.BROWSER_JAR_FILE_PATH}"
 `));
 
-gulp.task('build:post', gulp.series(
+gulp.task('build:post-run', gulp.series(
   'build:gecko-dev:link',
   'build:gecko-dev:jar',
   'mach:build',

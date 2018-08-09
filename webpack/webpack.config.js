@@ -5,12 +5,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlInlineSourceWebpackPlugin from 'html-webpack-inline-source-plugin';
 import PostCompileWebpackPlugin from 'post-compile-webpack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
-import fs from 'fs-extra';
 import gulp from 'gulp';
 import once from 'lodash/once';
-import promisify from 'pify';
+import p from 'pify';
 
 import '../gulpfile.babel';
+import argv from '../scripts/argv';
 import * as Config from '../scripts/config';
 import * as Paths from '../scripts/paths';
 
@@ -39,6 +39,22 @@ export default () => ({
       test: /\.vue$/,
       exclude: /node_modules/,
       use: 'vue-loader',
+    }, {
+      test: /\.css$/,
+      use: [{
+        loader: 'style-loader',
+        options: {
+          sourceMap: true,
+        },
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: true,
+          importLoaders: 1,
+          localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+        },
+      }],
     }],
   },
   plugins: [
@@ -49,11 +65,15 @@ export default () => ({
     }),
     new HtmlInlineSourceWebpackPlugin(),
     new PostCompileWebpackPlugin(once(async () => {
-      const built = await fs.pathExists(Paths.GECKO_DEV_OUTPUT_DIR_PATH);
-      if (!built) {
-        await promisify(gulp.task('build:post'))();
-      } else {
-        await promisify(gulp.task('mach:run'))();
+      if (argv.serve) {
+        return p(gulp.task('serve'))();
+      }
+      if (argv.run) {
+        if (!Config.GECKO_DEV_OUTPUT_DIR_EXISTS) {
+          await p(gulp.task('build:post-run'))();
+        } else {
+          await p(gulp.task('mach:run'))();
+        }
       }
     })),
   ],
